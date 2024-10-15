@@ -10,12 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Install SSH Key
+    - name: Deploy to all domains
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     
-    - name: Deploy with rsync
+    - name: Deploy lilserver
       run: rsync -avz --delete ./ webadmin@135.181.38.94:/var/www/lilserver.analogmantra.com/
+    - name: Deploy m4gnus
+      run: rsync -avz --delete ./ webadmin@135.181.38.94:/var/www/m4gn.us
+    - name: Deploy magnushambleton
+      run: rsync -avz --delete ./ webadmin@135.181.38.94:/var/www/magnushambleton.com/
